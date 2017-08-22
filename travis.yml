@@ -1,0 +1,11 @@
+language: python
+python:
+  - "2.7"
+deploy:
+  provider: pypi
+  user: Veerendram
+  password:
+    secure:"da78RmrSUA6QeRYJ6WCMIVVwdFjz5DKZg4LpSl49l/MlpGgL8qtl6ksiinvTDA3B9WcqRBggMKeANOzURF8SS7kkm75NU+4lJ07JQyA7W3W5lbrWJ7HRtOBGMyWen4IEV5WXu5aCZl0WPRfIpfLvUXzhjOAjE040SmIm+4AzS7AhfELey4ZnSFPiWREqm9tWYQW1CS3/kD7WGWtZ7jRiTpMhFWJ6DcWYTVjgcWfYmq9NfG8nZGj7bGlqIzcnbsVZ8saBGoNh7CNzz8p5GIsQmVvTSMCyQcN7lpqdnKDChCxvFdg3roCqRdne6Qdy1FWmmz0+aOaNbQenbfnZaHCfFdMvWkPhb4VS07GHU2ftDUkf7rog5sbTmwxVJEMpTMnNK+mnQRjSBlHS9LzcAOjnpfvv3elJr5FG8/DPCcDrsk+ljncaiOm9TBF41OrlyGWBzAdwhrJqu6K+iJkzJ1I6XSMrArnhER/nbysHEagjF57tg7/I98/JVR1Xl9omN6+cgaVqR5ipiPKeAvk7QTK9j52F146sBnD9sYHA/jmjrPpVQt+omfwWGZvagd+RzOO2f6scjL4AE/uAtXkArYykPmYO7tXQOxNdWPRe5q2U0F/h1gmqxvLx0nW0a6kbEAebwQB7s0NrzSoLniwhMDGf2uRtV3jV80cWpwyC8rOahmQ="
+  on:
+    tags: false
+    branch: master
