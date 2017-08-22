@@ -1,5 +1,7 @@
 AVTools
 =======
+<a href="https://codebeat.co/projects/github-com-veerendram-avtools-master"><img alt="codebeat badge" src="https://codebeat.co/badges/deb73b77-3f86-4f37-a880-abfc8e79813e" /></a>
+
 
 This package provides Audio Video tools, which can be for testing, automation and many other purpose.
 
