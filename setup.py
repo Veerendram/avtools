@@ -14,7 +14,7 @@ setup(
     packages=find_packages(),
     install_requires=['psutil', 'pillow', 'watchdog',
                       'pyyaml', 'pyqrcode', 'python-resize-image',
-                      'six', 'bs4', 'numpy'],
+                      'six', 'bs4', 'numpy', 'pytest'],
     long_description=long_description,
     zip_safe=False
 )

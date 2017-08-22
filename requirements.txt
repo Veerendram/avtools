@@ -1,0 +1,10 @@
+psutil
+pillow
+watchdog
+pyyaml
+pyqrcode
+python-resize-image
+six
+bs4
+numpy
+pytest
