@@ -27,6 +27,7 @@ class CropImages(object):
     def get_all_images_as_list(self):
         """
         Retrives all the image files with full path and turns image files as list
+        get all the 'jpg' and 'png' files as list
         :return:
         """
         images = []
@@ -62,7 +63,7 @@ class CropImages(object):
         crop_folder_count = 1
         for box in crop_boxs:
 
-            image_count = 0
+            sliced_img_count = 0
             folder = "frame"+str(crop_folder_count)
             cropped_image_folder = path.join(self.dest_folder, folder)
             if not path.isdir(cropped_image_folder):
@@ -70,11 +71,11 @@ class CropImages(object):
                 mkdir(cropped_image_folder)
             for image in self.image_files:
                 print "Cropping image : {} ".format(image)
-                cropped_image_file = self.dest_image_name + str(image_count) + ".png"
+                cropped_image_file = self.dest_image_name + str(sliced_img_count) + ".png"
                 dest = path.join(cropped_image_folder, cropped_image_file)
                 print "Cropped image : {}".format(dest)
                 img = Image.open(image)
-                image_count = image_count + 1
+                sliced_img_count = sliced_img_count + 1
                 cropimage = img.crop(box)
                 cropimage.save(dest)
             crop_folder_count = crop_folder_count+1

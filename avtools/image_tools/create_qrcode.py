@@ -16,10 +16,12 @@ class CreateQRcode(object):
     Bulk QRCode image creation and video Creation
     """
 
-    def __init__(self, qrcode_prefix_text, count=0, destination=None):
+    def __init__(self, qrcode_prefix_text, add_text = False, count=0,
+                 destination=None):
         self.qrcode_prefix_text = qrcode_prefix_text
         self.count = count
         self.qr_code_images = collections.OrderedDict()
+        self.addText = add_text
         if destination is not None:
             self.dest_folder = destination
             if not path.isdir(self.dest_folder):
@@ -79,13 +81,11 @@ class CreateQRcode(object):
                 blue.paste(tmp_im, (250, 0))
                 blue.save(abs_path_file)
 
-            elif temp_count > get_divison_list[1] and temp_count <= \
-                    get_divison_list[2]:
+            elif get_divison_list[1]<temp_count<=get_divison_list[2]:
                 green.paste(tmp_im, (250, 0))
                 green.save(abs_path_file)
 
-            elif temp_count > get_divison_list[2] and temp_count <= \
-                    get_divison_list[3]:
+            elif get_divison_list[2]<temp_count <= get_divison_list[3]:
                 grey.paste(tmp_im, (250, 0))
                 grey.save(abs_path_file)
 
@@ -94,14 +94,8 @@ class CreateQRcode(object):
                 red.save(abs_path_file)
 
             # Writing text to image_tools
-            im = Image.open(abs_path_file)
-            draw = ImageDraw.Draw(im)
-            # use a font from machine
-            calibri_font = path.join(self.fonts_path, "Calibri.ttf")
-            fnt = ImageFont.truetype(calibri_font, 20)
-            draw.text((340, 10), qr_code_content, font=fnt, fill="maroon")
-            im.save(abs_path_file)
-
+            if self.addText:
+                self.__add_text(abs_path_file, qr_code_content)
         return self.qr_code_images
 
     def create_qr_code_video(self):
@@ -128,3 +122,21 @@ class CreateQRcode(object):
         print a[0]
         a = [0, a[0], a[0] * 2, a[0] * 3]
         return a
+
+    def __add_text(self, image, content):
+        """
+        Add content to the image file , add's text at 340, 10 location of
+        the image
+        :param image:
+        :param content:
+        :return:
+        """
+        # Writing text to image_tools
+        im = Image.open(image)
+        draw = ImageDraw.Draw(im)
+        # use a font from machine
+        calibri_font = path.join(self.fonts_path, "Calibri.ttf")
+        fnt = ImageFont.truetype(calibri_font, 20)
+        draw.text((340, 10), content, font=fnt, fill="maroon")
+        im.save(image)
+
