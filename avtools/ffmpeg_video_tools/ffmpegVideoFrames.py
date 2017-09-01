@@ -5,6 +5,7 @@ from os import path, makedirs, listdir
 
 from avtools.ffmpeg_video_tools.ffmpeg import FFMPEG
 from avtools.utils.processInfo import ProcessInfo
+from avtools.common import get_image_frames_count
 
 PROCESS_QUERY_INFROMATION = 0x1000
 
@@ -65,7 +66,7 @@ class ExtractVideoFrames(FFMPEG):
         self.start_frames = shlex.split(frames_cmd)
         print "Final extract command: {}\n".format(self.start_frames)
 
-    def __start(self):
+    def _start(self):
         """
         Starts the frame extraction subprocess
         :return:
@@ -85,7 +86,7 @@ class ExtractVideoFrames(FFMPEG):
         :return frames_count: Number of Frames extracted
         """
         multiprocess_id = multiprocessing.Process(name="FFMPEG VideoFrames",
-                                                  target=self.__start)
+                                                  target=self._start)
         # multiprocess_id.daemon = True
         multiprocess_id.start()
         multiprocess_id.join()
@@ -95,31 +96,5 @@ class ExtractVideoFrames(FFMPEG):
         process_info = ProcessInfo()
         while process_info.get_process_status("ffmpeg"):
             continue
-        frames_count = self.get_extracted_frames(self.frames_folder)
+        frames_count = get_image_frames_count(self.frames_folder)
         return [self.frames_folder, frames_count[1]]
-
-    @staticmethod
-    def get_extracted_frames(frames_folder):
-        """
-        Checks for the folder where frames are created and returns created
-        frames(images) count.
-        NOTE: Testers should make sure they use this method based on the
-        video length and frame extraction time.
-        :param frames_folder:
-        :return: return the status and number of frames available (as list)
-        """
-        """
-        TODO: May have to implement a timer functionality to wait until
-        frames extraction is complete. --TBD--
-        """
-        status = False
-        num_files = 0
-        if path.isdir(frames_folder):
-            num_files = len([f for f in listdir(frames_folder)
-                             if
-                             path.isfile(path.join(frames_folder, f))])
-            if num_files != 0:
-                status = True
-            return [status, num_files]
-
-        return [status, num_files]

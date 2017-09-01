@@ -1,7 +1,9 @@
 import shlex
 from os import path, listdir, makedirs
 import subprocess
+
 from avtools.vlc_video_tools.vlc import VLC
+from avtools.common import get_image_frames_count
 
 
 class _ExtractFrames(VLC):
@@ -80,7 +82,8 @@ class _ExtractFrames(VLC):
             print err
             raise Exception(err)
 
-        process_number = subprocess.Popen(self.start_frames)
+        process_number = subprocess.Popen(self.start_frames, stdout=subprocess.PIPE)
+        process_number.wait()
         return process_number
 
 
@@ -131,32 +134,8 @@ class VideoFrames(object):
         frames = self.__setup_video_frames_extraction(video_file, scene_ratio, start_duration,
                                                       stop_duration, frames_folder)
 
+        print "Starting  frames extraction using VLC"
         pid = frames.start()
-        print "Started frames extraction"
-        return [frames_folder, pid]
 
-    @staticmethod
-    def get_extracted_frames(frames_folder):
-        """
-        Checks for the folder where frames are created and returns created
-        frames(images) count.
-        NOTE: Testers should make sure they use this method based on the
-        video length and frame extraction time.
-        :param frames_folder:
-        :return: return the status and number of frames available (as list)
-        """
-        """
-        TODO: May have to implement a timer functionality to wait until
-        frames extraction is complete. --TBD--
-        """
-        status = False
-        num_files = 0
-        if path.isdir(frames_folder):
-            num_files = len([f for f in listdir(frames_folder)
-                             if
-                             path.isfile(path.join(frames_folder, f))])
-            if num_files != 0:
-                status = True
-            return [status, num_files]
-
-        return [status, num_files]
+        frames_count = get_image_frames_count(frames_folder)
+        return [frames_folder, frames_count]
