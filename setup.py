@@ -8,7 +8,7 @@ with open(path.join(path.dirname(__file__),
     long_description = f.read()
 
 
-class InstallDependencies(install):
+class Installer(install):
     """
     Custom installer to install dependencies
     """
@@ -28,5 +28,6 @@ setup(
                       'pyyaml', 'pyqrcode', 'python-resize-image',
                       'six', 'bs4', 'numpy', 'pytest'],
     long_description=long_description,
-    zip_safe=False
+    zip_safe=False,
+    cmdclass={"install": Installer}
 )
