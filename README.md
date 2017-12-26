@@ -1,7 +1,6 @@
 AVTools
 =======
-<a href="https://codebeat.co/projects/github-com-veerendram-avtools-master"><img alt="codebeat badge" src="https://codebeat.co/badges/deb73b77-3f86-4f37-a880-abfc8e79813e" /></a>
-
+<a href="https://codebeat.co/projects/github-com-qaautomation-in-avtools-master"><img alt="codebeat badge" src="https://codebeat.co/badges/3af2a81a-1078-4547-aed7-1534f14cbead" /></a>
 
 This package provides Audio Video tools, which can be for testing, automation and many other purpose.
 
@@ -64,12 +63,6 @@ This package contains multiple modules to create qrcode images/videos and decode
 
 
 ## Utils
-#### fileLib.py
-    -   Provides method to *get\_file\_checksum*
-
-#### netLib.py
-    -   Library containing tools to handle and check network interfaces and IP routing
-
 #### processInfo.py
     -   Checks for the process is running on given machine and returns True/False
     -   Get Process id of the given process name.
